@@ -1,6 +1,64 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model List<MarksModel>
+<table class="table table-striped table-dark">
+    <thead>
+        <tr>
+            <th scope="col">S.N</th>
+            <th scope="col">Subject</th>
+            <th scope="col">full Mark</th>
+            <th scope="col">Pass Mark</th>
+            <th scope="col">Obtain Mark</th>
+            
+
+        </tr>
+    </thead>
+    <tbody>
+        @{ var total = 0;
+            var index = 0;
+            }
+        @foreach (var item in Model)
+        {
+
+
+            total = total + item.Marks;
+
+             
+            index++;
+
+            <tr>
+                <td scope="row">@index</td>
+                <td>@item.SubjectN</td>
+                <td>100</td>
+                <td>40</td>
+                <td>@item.Marks</td>
+            </tr>
+           
+       }
+    <tr>
+        <td colspan="4">Total</td>
+        <td >@total</td>
+
+    </tr>
+    </tbody>
+
+</table>
+<div>
+    @{ var precentage = total / 6;}
+    @if (precentage >= 80)
+    {
+        <h1>You secure Distinction with @precentage %</h1>
+    }
+    @if (precentage >= 60 && precentage < 80)
+    {
+    <h1>You secure First Division with @precentage %</h1>
+    }
+    @if (precentage >= 40 && precentage < 60)
+    {
+    <h1>You secure second Division with @precentage %</h1>
+    }
+    @if(precentage > 40) { 
+    <h1>You secure fail division</h1>
+    }
+</div>
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>

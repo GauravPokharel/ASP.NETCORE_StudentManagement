@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Programs\\Dot_net\\StudentManagement\\StudentManagement\\StudentManagement\\StudentManagement.csproj": {}
+    "D:\\bsc.csit\\6th sem\\.Net\\Web\\StudentManagement\\StudentManagement\\StudentManagement\\StudentManagement.csproj": {}
   },
   "projects": {
-    "E:\\Programs\\Dot_net\\StudentManagement\\StudentManagement\\StudentManagement\\StudentManagement.csproj": {
+    "D:\\bsc.csit\\6th sem\\.Net\\Web\\StudentManagement\\StudentManagement\\StudentManagement\\StudentManagement.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Programs\\Dot_net\\StudentManagement\\StudentManagement\\StudentManagement\\StudentManagement.csproj",
+        "projectUniqueName": "D:\\bsc.csit\\6th sem\\.Net\\Web\\StudentManagement\\StudentManagement\\StudentManagement\\StudentManagement.csproj",
         "projectName": "StudentManagement",
-        "projectPath": "E:\\Programs\\Dot_net\\StudentManagement\\StudentManagement\\StudentManagement\\StudentManagement.csproj",
-        "packagesPath": "C:\\Users\\GauravPokharel\\.nuget\\packages\\",
-        "outputPath": "E:\\Programs\\Dot_net\\StudentManagement\\StudentManagement\\StudentManagement\\obj\\",
+        "projectPath": "D:\\bsc.csit\\6th sem\\.Net\\Web\\StudentManagement\\StudentManagement\\StudentManagement\\StudentManagement.csproj",
+        "packagesPath": "C:\\Users\\97798\\.nuget\\packages\\",
+        "outputPath": "D:\\bsc.csit\\6th sem\\.Net\\Web\\StudentManagement\\StudentManagement\\StudentManagement\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\GauravPokharel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\97798\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

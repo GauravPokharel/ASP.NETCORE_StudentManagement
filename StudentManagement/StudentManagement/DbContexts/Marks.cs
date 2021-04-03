@@ -12,4 +12,5 @@ namespace StudentManagement.DbContexts
         public string UserId { get; set; }
         public int SubjectId { get; set; }
     }
+    
 }
