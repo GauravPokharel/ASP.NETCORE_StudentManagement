@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using StudentManagement.DbContexts;
@@ -15,11 +16,18 @@ namespace StudentManagement.Controllers
 
     public class HomeController : Controller
     {
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILogger<HomeController> _logger;
         private ADbContexts _dbcontext;
 
-        public HomeController(ILogger<HomeController> logger, ADbContexts dbcontext)
+        public HomeController(ILogger<HomeController> logger, ADbContexts dbcontext, UserManager<IdentityUser> userManager,
+             SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _roleManager = roleManager;
             _logger = logger;
             _dbcontext = dbcontext;
         }
@@ -43,10 +51,21 @@ namespace StudentManagement.Controllers
             return View(marks);
            
         }
+
         [Authorize(Roles = "Teacher")]
-        public IActionResult TeacherIndex()
+        public async Task<IActionResult> TeacherIndex()
         {
-            return View();
+            List<StudentDetailsModel> students = new List<StudentDetailsModel>();
+            string roleName = "Student";
+            var users = await _userManager.GetUsersInRoleAsync(roleName);
+            foreach (var item in users)
+            {
+                var model = new StudentDetailsModel();        
+                model.Id = item.Id;
+                model.StudentName = item.UserName;
+                students.Add(model);
+            }            
+            return View(students);
         }
         [AllowAnonymous]
         public IActionResult Privacy()

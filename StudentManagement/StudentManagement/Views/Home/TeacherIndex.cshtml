@@ -1,2 +1,14 @@
-﻿@{
+﻿@model List<StudentDetailsModel>
+@{
 }
+<h1>Student List</h1>
+
+    <ul class="list-group">
+        @foreach (var item in Model)
+        {
+
+
+            <li class="list-group-item"><a asp-area="" asp-action="Studentdetail" asp-controller="Home" asp-route-id="@item.Id"> @item.StudentName</a></li>
+        }
+    </ul>
+
