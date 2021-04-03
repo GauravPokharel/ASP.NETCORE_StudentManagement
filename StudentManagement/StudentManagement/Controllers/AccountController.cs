@@ -24,6 +24,7 @@ namespace StudentManagement.Controllers
             _signInManager = signInManager;
             _roleManager = roleManager;
         }
+
         [AllowAnonymous]
         public IActionResult Login()
         {
@@ -68,7 +69,7 @@ namespace StudentManagement.Controllers
                 var grandmeIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var userPrincipal = new ClaimsPrincipal(new[] { grandmeIdentity });
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, new AuthenticationProperties { });
-                return RedirectToAction("index", "home");
+                return RedirectToAction("Index", "Home");
             }
             else if (result.IsLockedOut)
             {
@@ -98,12 +99,12 @@ namespace StudentManagement.Controllers
                     Email = model.Email,
                     EmailConfirmed = true
                 };
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var result = await _userManager.CreateAsync(user, model.Password);            
+                
 
                 if (result.Succeeded)
                 {
-                    var addRoleToUser = await _userManager.AddToRoleAsync(user, "Customer");
-
+                    var addRoleToUser = await _userManager.AddToRoleAsync(user, "Student");
 
                     return RedirectToAction("Login");
                 }
@@ -132,8 +133,8 @@ namespace StudentManagement.Controllers
 
         public async Task<IActionResult> RegisterRoles()
         {
-            /*var identityRole = new IdentityRole { Name = "Customer" };
-            var addRole = await _roleManager.CreateAsync(identityRole);*/
+            var identityRole = new IdentityRole { Name = "Student" };
+            var addRole = await _roleManager.CreateAsync(identityRole);
             return View();
         }
     }

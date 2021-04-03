@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using StudentManagement.DbContexts;
@@ -11,6 +12,7 @@ using StudentManagement.Models;
 
 namespace StudentManagement.Controllers
 {
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -21,9 +23,13 @@ namespace StudentManagement.Controllers
             _logger = logger;
             _dbcontext = dbcontext;
         }
-
+        [Authorize]
         public IActionResult Index()
         {
+            if (User.IsInRole("Teacher"))
+            {
+                return RedirectToAction("TeacherIndex");
+            }
             var sub = _dbcontext.Subject.Where(x => x.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier));
             List<MarksModel> marks = new List<MarksModel>();
             foreach (var item in sub)
@@ -35,8 +41,14 @@ namespace StudentManagement.Controllers
                 marks.Add(studentMark);
             }
             return View(marks);
+           
         }
-
+        [Authorize(Roles = "Teacher")]
+        public IActionResult TeacherIndex()
+        {
+            return View();
+        }
+        [AllowAnonymous]
         public IActionResult Privacy()
         {
             return View();
