@@ -89,6 +89,7 @@ namespace StudentManagement.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles ="Teacher")]
         public async Task<IActionResult> Register(RegisterModel model)
         {
             if (ModelState.IsValid)
@@ -106,7 +107,7 @@ namespace StudentManagement.Controllers
                 {
                     var addRoleToUser = await _userManager.AddToRoleAsync(user, "Student");
 
-                    return RedirectToAction("Login");
+                    return RedirectToAction("Index","Home");
                 }
 
                 foreach (var error in result.Errors)

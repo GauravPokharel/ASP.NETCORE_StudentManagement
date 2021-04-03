@@ -12,5 +12,10 @@ namespace StudentManagement.Models
         public double Percentage { get; set; }
         public string UserId { get; set; }
         public int SubjectId { get; set; }
+        public subjects SubjectN { get; set; }
+    }
+    public class subjects
+    {
+        public string SubjectName { get; set; }
     }
 }
