@@ -2,8 +2,5 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 /.vs
-<<<<<<< HEAD
 /StudentManagement/StudentManagement/obj
-=======
-/StudentManagement/StudentManagement/obj
->>>>>>> login
+
