@@ -2,12 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using StudentManagement.DbContexts;
 
 namespace StudentManagement
 {
@@ -24,6 +28,42 @@ namespace StudentManagement
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<ADbContexts>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ADbContexts>().AddDefaultTokenProviders();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            {
+                // Cookie settings
+                options.Cookie.HttpOnly = true; //you cannot modify or override it.
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+
+                options.LoginPath = "/Home/Index";
+                options.AccessDeniedPath = "/Account/AccessDenied";
+                options.SlidingExpiration = true;
+
+            });
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings.
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 1;
+
+                // Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;    ///   
+
+
+                // User settings.
+
+                options.User.AllowedUserNameCharacters =
+
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
